@@ -52,5 +52,10 @@ export const listLength = () => {
   return boardStateList.length;
 }
 
+export const compareByIndex = (index1:number, index2:number) => {
+  //returns true if they are the same
+  return (boardStateList[index1] == boardStateList[index2]);
+}
+
 //Export
 //export {};
