@@ -4,6 +4,7 @@
 
 export const changeValueAtRowColumnTo = (board:Array<Array<number>>, row:number, column:number, value:number) => {
   board[row][column] = value;
+  return board;
 }
 
 export const findNeighborIndices = (row:number, column:number) => {

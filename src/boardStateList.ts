@@ -1,5 +1,6 @@
 
 // Import
+import * as BoardFunctions from "./board"
 
 /*
 import {gameInitialTruths as GameInitialTruths} from "./index"
@@ -48,6 +49,15 @@ export const latestBoard = () => {
   return boardStateList[listLength()-1]
 }
 
+export const deleteLatestBoard = () => {
+
+  boardStateList.splice(
+    boardStateList.length-1,
+    1
+  )
+
+}
+
 export const listLength = () => {
   return boardStateList.length;
 }
@@ -55,6 +65,28 @@ export const listLength = () => {
 export const compareByIndex = (index1:number, index2:number) => {
   //returns true if they are the same
   return (boardStateList[index1] == boardStateList[index2]);
+}
+
+export const createNewBoardWhichMatchesThisBoard = (board:Array<Array<number>>) =>{
+let boardLength = board.length;
+  let newBoard:Array<Array<number>> = createEmptyBoard(boardLength);
+
+  for (let i = 0; i < boardLength; i++) {
+    for (let j = 0; j < boardLength; j++) {
+      newBoard[i][j] = board[i][j];
+    }
+  }
+  return newBoard;
+}
+
+export const createNewBoardWithReplacedValue = (row:number, column:number, value:number) => {
+
+  let newBoard:Array<Array<number>> = createNewBoardWhichMatchesThisBoard(latestBoard())
+
+  newBoard = BoardFunctions.changeValueAtRowColumnTo(newBoard, row, column, value)
+
+  pushBoard(newBoard)
+
 }
 
 //Export

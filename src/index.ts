@@ -16,8 +16,8 @@ const startGame = (boardSideLength:number, komi:number) => {
 }
 
 /*
-const attemptPlacingAStone = ([row, column]) => {
-  GameLogic.attemptStonePlacement([row, column])
+const attemptPlacingAStone = (row, column) => {
+  GameLogic.attemptStonePlacement(row, column)
 
   if (GameLogic.KO == true){
     //ko error
@@ -29,6 +29,7 @@ const attemptPlacingAStone = ([row, column]) => {
 
 }
 */
+
 
 
 const pass = () => {
@@ -45,17 +46,51 @@ const endGame = () => {
 */
 
 
+//Errors
+
+const koError = () => {
+
+}
+
+const suicideError = () => {
+
+}
+
+
+//testing stuff from the past
+
+
 startGame(3,7.5)
 
+BoardStateList.createNewBoardWithReplacedValue(0,0,-1)
+BoardStateList.createNewBoardWithReplacedValue(0,1,-1)
+BoardStateList.createNewBoardWithReplacedValue(1,0,-1)
+BoardStateList.createNewBoardWithReplacedValue(1,2,-1)
+BoardStateList.createNewBoardWithReplacedValue(2,1,-1)
+BoardStateList.createNewBoardWithReplacedValue(1,1,1)
+
 pass()
-pass()
+
+Shapes.killShape(Shapes.findShapeByIndex(1,1))
+
+
 
 //attemptPlacingAStone(3,4)
 
-
 console.log(BoardStateList.boardStateList)
 
-console.log(Shapes.findShapeByIndex(0,0))
+console.log(Shapes.findShapeByIndex(1,1))
+
+let neighbors = Shapes.findNeighborsOfShape(Shapes.findShapeByIndex(1,1))
+
+console.log(neighbors)
+
+console.log(Shapes.calculateNumberOfLibertiesOfShape(Shapes.findShapeByIndex(1,1)))
+
+console.log(Shapes.lifeOrDeath(Shapes.findShapeByIndex(1,1)))
+
+console.log(Score.score)
+
 
 
 // Export
