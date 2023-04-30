@@ -2,7 +2,7 @@
 const score = [0,0];
 
 const initializeScore = (komi:number) => {
-  score[1] = 6.5;
+  score[1] = komi;
 }
 
 const addScore = (points:number, color:number) => {

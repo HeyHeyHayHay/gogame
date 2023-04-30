@@ -119,10 +119,13 @@ export const lifeOrDeath = (indices:Array<Array<number>>) => {
 export const killShape = (indices:Array<Array<number>>) => {
 
   let scoreToAdd = (sizeAndColor(indices))[0];
+  console.log(scoreToAdd, typeof(scoreToAdd), "scoreToAdd")
   let colorOfShape = (sizeAndColor(indices))[1];
 
   Score.addScore(scoreToAdd, -colorOfShape)
 
+  console.log(Score.score)
+  console.log(typeof(Score.score))
   turnShapeToValue(indices, 0)
 
 }

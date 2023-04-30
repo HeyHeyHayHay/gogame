@@ -60,7 +60,7 @@ const suicideError = () => {
 //testing stuff from the past
 
 
-startGame(3,7.5)
+startGame(5,7.5)
 
 BoardStateList.createNewBoardWithReplacedValue(0,0,-1)
 BoardStateList.createNewBoardWithReplacedValue(0,1,-1)
@@ -77,7 +77,7 @@ Shapes.killShape(Shapes.findShapeByIndex(1,1))
 
 //attemptPlacingAStone(3,4)
 
-console.log(BoardStateList.boardStateList)
+//console.log(BoardStateList.boardStateList)
 
 console.log(Shapes.findShapeByIndex(1,1))
 
