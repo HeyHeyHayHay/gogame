@@ -62,34 +62,37 @@ const suicideError = () => {
 
 startGame(5,7.5)
 
-BoardStateList.createNewBoardWithReplacedValue(0,0,-1)
-BoardStateList.createNewBoardWithReplacedValue(0,1,-1)
-BoardStateList.createNewBoardWithReplacedValue(1,0,-1)
-BoardStateList.createNewBoardWithReplacedValue(1,2,-1)
-BoardStateList.createNewBoardWithReplacedValue(2,1,-1)
-BoardStateList.createNewBoardWithReplacedValue(1,1,1)
+GameLogic.attemptStonePlacement(0,1,1)
+GameLogic.attemptStonePlacement(1,0,1)
+GameLogic.attemptStonePlacement(1,2,1)
+GameLogic.attemptStonePlacement(2,1,1)
+//shouldn't work
+GameLogic.attemptStonePlacement(0,1,1)
+GameLogic.attemptStonePlacement(0,1,-1)
 
-pass()
+GameLogic.attemptStonePlacement(0,2,-1)
+GameLogic.attemptStonePlacement(2,2,-1)
+GameLogic.attemptStonePlacement(1,3,-1)
 
-Shapes.killShape(Shapes.findShapeByIndex(1,1))
+GameLogic.attemptStonePlacement(1,1,-1)
+GameLogic.attemptStonePlacement(1,2,1)
 
+
+
+//Shapes.killShape(Shapes.findShapeByIndex(1,1))
 
 
 //attemptPlacingAStone(3,4)
 
-//console.log(BoardStateList.boardStateList)
+console.log(BoardStateList.boardStateList)
 
-console.log(Shapes.findShapeByIndex(1,1))
+//BoardStateList.createNewBoardWithReplacedValue(1,1,-1)
 
-let neighbors = Shapes.findNeighborsOfShape(Shapes.findShapeByIndex(1,1))
+//GameLogic.captureDueToPlacement(1,1)
 
-console.log(neighbors)
-
-console.log(Shapes.calculateNumberOfLibertiesOfShape(Shapes.findShapeByIndex(1,1)))
-
-console.log(Shapes.lifeOrDeath(Shapes.findShapeByIndex(1,1)))
 
 console.log(Score.score)
+
 
 
 

@@ -8,7 +8,19 @@ import * as Score from "./score"
 //shape functions
 
 export const checkIfIndexIsInIndexList = (firstElement:number, secondElement:number, indices:Array<Array<number>>) => {
+  let foundIt = 0;
 
+  for (let index = 0; index < indices.length; index++) {
+    if (
+      (indices[index][0] == firstElement)
+      &&
+      (indices[index][1] == secondElement)
+    ) {
+      foundIt = 1;
+      return foundIt;
+    }
+  }
+  return foundIt;
 }
 
 export const findShapeByIndex = (row:number, column:number) => {
@@ -43,8 +55,9 @@ export const findShapeByIndex = (row:number, column:number) => {
 
 export const findNeighborsOfShape = (indices:Array<Array<number>>) => {
   let neighborIndices:Array<Array<number>> = [];
+  if (indices[0] == undefined) return;
 
-  let shapeColor = BoardStateList.latestBoard()[(indices[0][0])][(indices[0][1])]
+  let shapeColor = (BoardStateList.latestBoard())[(indices[0][0])][(indices[0][1])]
 
   for (let i:number = 0; i < indices.length; i++){
     let testNeighborIndices = BoardFunctions.findNeighborIndices(indices[i][0], indices[i][1])
@@ -91,8 +104,43 @@ export const findNeighborsOfShape = (indices:Array<Array<number>>) => {
   return neighborIndices;
 }
 
+export const findNonZeroNeighborIndices = (row:number, column:number) => {
+  let indices = [];
+
+  if (
+    (BoardStateList.latestBoard())[row+1] != undefined
+      &&
+      (BoardStateList.latestBoard())[row+1][column] != 0
+  ) { indices.push([row+1,column]) }
+
+  if (
+    (BoardStateList.latestBoard())[row-1] != undefined
+        &&
+    (BoardStateList.latestBoard())[row-1][column] != 0
+  ) { indices.push([row-1,column]) }
+
+  if (
+    (BoardStateList.latestBoard())[row][column+1] != undefined
+      &&
+    (BoardStateList.latestBoard())[row][column+1] != 0
+  ) { indices.push([row,column+1]) }
+
+  if (
+    (BoardStateList.latestBoard())[row][column-1] != undefined
+      &&
+    (BoardStateList.latestBoard())[row][column-1] != 0
+  ) { indices.push([row,column-1]) }
+
+
+  return indices;
+}
+
+
+
 export const calculateNumberOfLibertiesOfShape = (indices:Array<Array<number>>) => {
-  let neighborIndices:Array<Array<number>> = findNeighborsOfShape(indices);
+  if (indices[0] == undefined) return;
+  let neighborIndices = findNeighborsOfShape(indices);
+  if (neighborIndices == undefined) return;
   let numberOfLiberties:number = 0;
 
   for (let i:number = 0; i < neighborIndices.length; i++){
@@ -105,7 +153,7 @@ return numberOfLiberties;
 }
 
 export const lifeOrDeath = (indices:Array<Array<number>>) => {
-  // number for life and 0 for death
+  // 1 for life and 0 for death
   let numberOfLiberties = calculateNumberOfLibertiesOfShape(indices);
   let lifeOrDeath = 1;
   if (numberOfLiberties == 0){
@@ -119,13 +167,11 @@ export const lifeOrDeath = (indices:Array<Array<number>>) => {
 export const killShape = (indices:Array<Array<number>>) => {
 
   let scoreToAdd = (sizeAndColor(indices))[0];
-  console.log(scoreToAdd, typeof(scoreToAdd), "scoreToAdd")
+
   let colorOfShape = (sizeAndColor(indices))[1];
 
   Score.addScore(scoreToAdd, -colorOfShape)
 
-  console.log(Score.score)
-  console.log(typeof(Score.score))
   turnShapeToValue(indices, 0)
 
 }
@@ -153,4 +199,35 @@ let newBoard = BoardStateList.createNewBoardWhichMatchesThisBoard(BoardStateList
   BoardStateList.deleteLatestBoard()
   BoardStateList.pushBoard(newBoard)
 
+}
+
+export const findShapesByIndices = (indices:Array<Array<number>>) => {
+  if (indices.length == 0) return;
+
+  let listOfShapes = [findShapeByIndex(indices[0][0], indices[0][1])];
+  for (let index = 1; index < indices.length; index++) {
+    //for each spot we are checking
+    let foundIndexInPreviousShape = 0;
+    for (let shape = 0; shape < listOfShapes.length; shape++) {
+        //for each shape make sure the spot isn't in a shape we already found
+
+      if (
+        checkIfIndexIsInIndexList(indices[index][0], indices[index][1], listOfShapes[shape])
+      ) {
+        foundIndexInPreviousShape = 1;
+      }
+
+    }
+    if (!foundIndexInPreviousShape) {
+
+        listOfShapes.push(
+          findShapeByIndex(
+            indices[index][0], indices[index][1]
+          )
+        )
+
+    }
+
+  }
+  return listOfShapes;
 }

@@ -64,7 +64,24 @@ export const listLength = () => {
 
 export const compareByIndex = (index1:number, index2:number) => {
   //returns true if they are the same
-  return (boardStateList[index1] == boardStateList[index2]);
+  let firstComparisonBoard = boardStateList[index1];
+  let secondComparisonBoard = boardStateList[index2];
+
+  if (
+    firstComparisonBoard == undefined
+    ||
+    secondComparisonBoard == undefined
+  ) { return false }
+
+  for (let i = 0; i < boardStateList[index1].length; i++) {
+    for (let j = 0; j < boardStateList[index1].length; j++) {
+      if (
+        boardStateList[index1][i][j] != boardStateList[index2][i][j]
+
+      ) return false
+    }
+  }
+  return true
 }
 
 export const createNewBoardWhichMatchesThisBoard = (board:Array<Array<number>>) =>{
