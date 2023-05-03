@@ -15,20 +15,27 @@ const startGame = (boardSideLength:number, komi:number) => {
   Score.initializeScore(komi);
 }
 
-/*
-const attemptPlacingAStone = (row, column) => {
-  GameLogic.attemptStonePlacement(row, column)
 
-  if (GameLogic.KO == true){
-    //ko error
+const attemptPlacingAStone = (row:number , column:number, color:number) => {
+  GameLogic.attemptStonePlacement(row, column, color)
+
+  if (GameLogic.attemptStonePlacement(row, column, color) == "nonEmpty"){
+    nonEmptyError()
+    return
   }
 
-  if (GameLogic.suicide == true){
-    //suicide error
+  if (GameLogic.attemptStonePlacement(row, column, color) == "ko"){
+    koError()
+    return
+  }
+
+  if (GameLogic.attemptStonePlacement(row, column, color) == "suicide"){
+    suicideError()
+    return
   }
 
 }
-*/
+
 
 
 
@@ -48,12 +55,16 @@ const endGame = () => {
 
 //Errors
 
-const koError = () => {
+const nonEmptyError = () => {
+  console.log("nonEmpty")
+}
 
+const koError = () => {
+  console.log("ko")
 }
 
 const suicideError = () => {
-
+  console.log("suicide")
 }
 
 
@@ -62,20 +73,28 @@ const suicideError = () => {
 
 startGame(5,7.5)
 
-GameLogic.attemptStonePlacement(0,1,1)
-GameLogic.attemptStonePlacement(1,0,1)
-GameLogic.attemptStonePlacement(1,2,1)
-GameLogic.attemptStonePlacement(2,1,1)
+attemptPlacingAStone(0,1,1)
+attemptPlacingAStone(1,0,1)
+attemptPlacingAStone(1,2,1)
+attemptPlacingAStone(2,1,1)
 //shouldn't work
-GameLogic.attemptStonePlacement(0,1,1)
-GameLogic.attemptStonePlacement(0,1,-1)
+attemptPlacingAStone(0,1,1)
+attemptPlacingAStone(0,1,-1)
 
-GameLogic.attemptStonePlacement(0,2,-1)
-GameLogic.attemptStonePlacement(2,2,-1)
-GameLogic.attemptStonePlacement(1,3,-1)
+attemptPlacingAStone(0,2,-1)
+attemptPlacingAStone(2,2,-1)
+attemptPlacingAStone(1,3,-1)
 
-GameLogic.attemptStonePlacement(1,1,-1)
-GameLogic.attemptStonePlacement(1,2,1)
+attemptPlacingAStone(1,1,-1)
+attemptPlacingAStone(1,2,1)
+
+attemptPlacingAStone(4,3,1)
+attemptPlacingAStone(3,4,1)
+attemptPlacingAStone(3,3,1)
+attemptPlacingAStone(3,3,1)
+
+
+attemptPlacingAStone(4,4,-1)
 
 
 

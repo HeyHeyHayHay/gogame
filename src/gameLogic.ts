@@ -12,7 +12,9 @@ export const attemptStonePlacement = (row:number, column:number, color:number) =
 
   if (
     BoardStateList.latestBoard()[row][column] != 0
-  ) {return} //nonempty();
+  ){
+    return "nonEmpty";
+  } //nonempty();
 
   BoardStateList.createNewBoardWithReplacedValue(row, column, color)
 
