@@ -1,11 +1,15 @@
 import * as BoardStateList from "./boardStateList"
 import * as BoardFunctions from "./board"
 import * as Shapes from "./shapes"
+import * as Score from "./score"
+
 
 //Game Logic Stuff
 // stone placement, ko, suicide
 
 export const attemptStonePlacement = (row:number, column:number, color:number) => {
+  let currentScore = [Score.score[0], Score.score[1]];
+
   if (
     BoardStateList.latestBoard()[row][column] != 0
   ) {return} //nonempty();
@@ -16,6 +20,8 @@ export const attemptStonePlacement = (row:number, column:number, color:number) =
 
   if (ko()){
     BoardStateList.deleteLatestBoard()
+    Score.score[0] = currentScore[0];
+    Score.score[1] = currentScore[1];
     return "ko";
   }
 
